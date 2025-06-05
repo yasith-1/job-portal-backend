@@ -1,5 +1,6 @@
 package edu.icet.jobportal.dto;
 
+import jakarta.persistence.Id;
 import lombok.*;
 
 import java.time.LocalDate;

@@ -32,5 +32,4 @@ public class CompanyController {
     private Company getCompany(@PathVariable String id) {
         return service.searchCompay(id);
     }
-
 }
