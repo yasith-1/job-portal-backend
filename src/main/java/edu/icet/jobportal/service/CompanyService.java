@@ -32,6 +32,16 @@ public class CompanyService {
         return false;
     }
 
+    public Boolean updateCompany(Company company) {
+        CompanyEntity companyEntity = modelMapper.map(company, CompanyEntity.class);
+        companyRepository.save(companyEntity);
+
+        if (companyRepository.existsById(company.getCompanyId())) {
+            return true;
+        }
+        return false;
+    }
+
     public List<Company> getAllCompanyList() {
         List<CompanyEntity> companyEntityList = companyRepository.findAll();
         for (CompanyEntity entity : companyEntityList) {

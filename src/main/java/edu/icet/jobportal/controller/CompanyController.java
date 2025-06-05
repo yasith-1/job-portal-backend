@@ -18,6 +18,11 @@ public class CompanyController {
        return service.addCompany(company);
     }
 
+    @PatchMapping("/update")
+    private Boolean update(@RequestBody Company company) {
+        return service.updateCompany(company);
+    }
+
     @GetMapping("/getall")
     private List<Company> getAll() {
         return service.getAllCompanyList();
