@@ -1,6 +1,7 @@
 package edu.icet.jobportal.controller;
 
 import edu.icet.jobportal.dto.Job;
+import edu.icet.jobportal.dto.JobWithCompanyDTO;
 import edu.icet.jobportal.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/job")
 public class JobController {
     @Autowired
@@ -23,10 +25,20 @@ public class JobController {
         return service.updateJob(job);
     }
 
-    @GetMapping("/getall")
+    @GetMapping("/getalljobs")
     private List<Job> getAll() {
         return service.getAllJobList();
     }
+
+    @GetMapping("/getalljobscompanies")
+    private List<JobWithCompanyDTO> getalljobscompanies() {
+        return service.getalljobscompanies();
+    }
+
+//    @PostMapping("/addjobpost")
+//    private Boolean addJobPost(@RequestBody JobWithCompanyDTO jobpost) {
+//        return service.addJobPost(jobpost);
+//    }
 
     @DeleteMapping("/delete/{id}")
     private Boolean delete(@PathVariable String id) {

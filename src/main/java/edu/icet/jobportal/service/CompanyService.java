@@ -23,6 +23,7 @@ public class CompanyService {
     private List<Company> companyArrayListList = new ArrayList<>();
 
     public Boolean addCompany(Company company) {
+        company.setCompanyId(generateId());
         CompanyEntity companyEntity = modelMapper.map(company, CompanyEntity.class);
         companyRepository.save(companyEntity);
 
@@ -65,5 +66,31 @@ public class CompanyService {
             return company;
         }
         return null;
+    }
+
+    private String generateId() {
+        List<CompanyEntity> allCompanies = companyRepository.findAll();
+
+        if (allCompanies.isEmpty()) {
+            return "C001";
+        }
+        int max = 0;
+
+        for (CompanyEntity company : allCompanies) {
+            String id = company.getCompanyId();
+            if (id != null && id.startsWith("C")) {
+                try {
+                    int num = Integer.parseInt(id.substring(1));
+                    if (num > max) {
+                        max = num;
+                    }
+                } catch (NumberFormatException e) {
+                    // Skip malformed IDs
+                }
+            }
+        }
+
+        int newIdNumber = max + 1;
+        return String.format("C%03d", newIdNumber); // e.g., C004
     }
 }
